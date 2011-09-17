@@ -22,3 +22,9 @@ install: $(TARGET)
 
 clean:
 	rm -f $(OBJS) $(TARGET) *~
+
+
+uninstall:
+
+	rm -f $(PREFIX)/bin/$(TARGET)
+	rm -rf $(DATADIR)
