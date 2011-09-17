@@ -6,7 +6,7 @@ DEFINES = -DDATADIR=\"$(DATADIR)/\"
 OBJS    =  actor.o    edit.o  map.o       player.o    shooter.o unix.o \
            bullet.o   hisc.o  options.o   script.o    timer.o          \
            control.o  main.o  particle.o  scroller.o  token.o
-TARGET  = alex4
+TARGET  = lex4
 
 $(TARGET): $(OBJS)
 	$(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
