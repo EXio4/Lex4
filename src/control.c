@@ -34,7 +34,7 @@ void init_control(Tcontrol *c) {
 					KEY_LCONTROL,
 					KEY_ALT,
 					KEY_Z,
-					KEY_W);
+					KEY_S);
 
 	c->flags = 0;
 	c->use_joy = 0;
