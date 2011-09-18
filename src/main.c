@@ -465,7 +465,7 @@ void load_level_files(const char *filename) {
 				log2file("  <%s> found", buf);
 			}
 			else {
-				allegro_message("ALEX4:\n<%s> not found - skipping", level_files[num_levels]);
+				allegro_message("lex4:\n<%s> not found - skipping", level_files[num_levels]);
 				log2file("  *** <%s> not found - skipping", level_files[num_levels]);
 			}
 		}
@@ -627,11 +627,11 @@ int init_game(const char *map_file) {
 	log2file(" initializing allegro");
 	garble_string(init_string, 53);
 #ifdef __unix__
-	snprintf(filename, sizeof(filename), "%s/.alex4/alex4.ini",
+	snprintf(filename, sizeof(filename), "%s/.lex4/lex4.ini",
 		homedir? homedir:".");
 	override_config_file(filename);
 #else
-	set_config_file("alex4.ini");
+	set_config_file("lex4.ini");
 #endif
 	
 	// install timers
@@ -647,7 +647,7 @@ int init_game(const char *map_file) {
 	swap_screen = create_bitmap(160, 120);
 	if (swap_screen == NULL) {
 		log2file("  *** failed");
-		allegro_message("ALEX4:\nFailed to allocate memory for swap screen.");
+		allegro_message("lex4:\nFailed to allocate memory for swap screen.");
 		return FALSE;
 	}
 
@@ -655,7 +655,7 @@ int init_game(const char *map_file) {
 	hisc_table = make_hisc_table();
 	if (hisc_table == NULL) {
 		log2file("  *** failed");
-		allegro_message("ALEX4:\nFailed to allocate memory for high score list.");
+		allegro_message("lex4:\nFailed to allocate memory for high score list.");
 		return FALSE;
 	}
 
@@ -663,7 +663,7 @@ int init_game(const char *map_file) {
 	hisc_table_space = make_hisc_table();
 	if (hisc_table_space == NULL) {
 		log2file("  *** failed");
-		allegro_message("ALEX4:\nFailed to allocate memory for high score list.");
+		allegro_message("lex4:\nFailed to allocate memory for high score list.");
 		return FALSE;
 	}
 	
@@ -678,7 +678,7 @@ int init_game(const char *map_file) {
 		h = get_config_int("graphics", "w_height", 480);
 	}
 
-	log2file(" entering gfx mode set in alex4.ini (%dx%d %s)", w, h, (get_config_int("graphics", "fullscreen", 0) ? "full" : "win"));
+	log2file(" entering gfx mode set in lex4.ini (%dx%d %s)", w, h, (get_config_int("graphics", "fullscreen", 0) ? "full" : "win"));
 
     if (set_gfx_mode(
 		(get_config_int("graphics", "fullscreen", 0) ? GFX_AUTODETECT_FULLSCREEN : GFX_AUTODETECT_WINDOWED),
@@ -690,7 +690,7 @@ int init_game(const char *map_file) {
 			log2file(" entering gfx mode (640x480 fullscreen)");
 			if (set_gfx_mode(GFX_AUTODETECT_FULLSCREEN, 640, 480, 0, 0)) {
 				log2file("  *** failed");
-				allegro_message("ALEX4:\nFailed to enter gfx mode.\nTry setting a custom resolution in alex4.ini.");
+				allegro_message("lex4:\nFailed to enter gfx mode.\nTry setting a custom resolution in lex4.ini.");
 				return FALSE;
 			}
 		}
@@ -730,18 +730,18 @@ int init_game(const char *map_file) {
 	packfile_password(NULL);
 	if (data == NULL) {
     	log2file("  *** failed");
-		allegro_message("ALEX4:\nFailed to load data.");
+		allegro_message("lex4:\nFailed to load data.");
 		return FALSE;
 	}
 
 	// load options
 	log2file(" loading options");
 #ifdef __unix__
-	snprintf(filename, sizeof(filename), "%s/.alex4/alex4.sav",
+	snprintf(filename, sizeof(filename), "%s/.lex4/lex4.sav",
 		homedir? homedir:".");
 	pf = pack_fopen(filename, "rp");
 #else
-	pf = pack_fopen("alex4.sav", "rp");
+	pf = pack_fopen("lex4.sav", "rp");
 #endif
 	if (pf) {
 		load_options(&options, pf);
@@ -755,11 +755,11 @@ int init_game(const char *map_file) {
 	// loading highscores
 	log2file(" loading hiscores");
 #ifdef __unix__
-	snprintf(filename, sizeof(filename), "%s/.alex4/alex4.hi",
+	snprintf(filename, sizeof(filename), "%s/.lex4/lex4.hi",
 		homedir? homedir:".");
 	pf = pack_fopen(filename, "rp");
 #else
-	pf = pack_fopen("alex4.hi", "rp");
+	pf = pack_fopen("lex4.hi", "rp");
 #endif
 	if (pf) {
 		load_hisc_table(hisc_table, pf);
@@ -798,9 +798,9 @@ int init_game(const char *map_file) {
 		num_levels = -1;  // skip end object when counting
 		maps = load_datafile_callback(DATADIR "maps.dat", count_maps_callback);
 		packfile_password(NULL);
-		if (maps == NULL) {
+ 		if (maps == NULL) {
 	    	log2file("  *** failed");
-			allegro_message("ALEX4:\nFailed to load original maps.");
+			allegro_message("lex4:\nFailed to load original maps.");
 			return FALSE;
 		}
 		log2file(" loaded %d maps", num_levels);
@@ -814,13 +814,13 @@ int init_game(const char *map_file) {
 			log2file("  %d maps loaded", num_levels);
 			if (num_levels == 0) {
 				log2file("  *** no maps were loaded");
-				allegro_message("ALEX4:\nCustom map file must\nhold at least one\nlegal map file.");
+				allegro_message("lex4:\nCustom map file must\nhold at least one\nlegal map file.");
 				return FALSE;
 			}
 		}
 		else {
 			log2file("  *** file not found: %s", map_file);
-			allegro_message("ALEX4:\nCustom map file not found:\n%s", map_file);
+			allegro_message("lex4:\nCustom map file not found:\n%s", map_file);
 			return FALSE;
 		}		
 	}
@@ -1032,11 +1032,11 @@ void uninit_game() {
 	if (init_ok) {
 		log2file(" saving options");
 #ifdef __unix__
-		snprintf(filename, sizeof(filename), "%s/.alex4/alex4.sav",
+		snprintf(filename, sizeof(filename), "%s/.lex4/lex4.sav",
 			homedir? homedir:".");
 		pf = pack_fopen(filename, "wp");
 #else
-		pf = pack_fopen("alex4.sav", "wp");
+		pf = pack_fopen("lex4.sav", "wp");
 #endif
 		if (pf) {
 			save_options(&options, pf);
@@ -1045,11 +1045,11 @@ void uninit_game() {
 		
 		log2file(" saving highscores");
 #ifdef __unix__
-		snprintf(filename, sizeof(filename), "%s/.alex4/alex4.hi",
+		snprintf(filename, sizeof(filename), "%s/.lex4/lex4.hi",
 			homedir? homedir:".");
 		pf = pack_fopen(filename, "wp");
 #else
-		pf = pack_fopen("alex4.hi", "wp");
+		pf = pack_fopen("lex4.hi", "wp");
 #endif
 		if (pf) {
 			save_hisc_table(hisc_table, pf);
@@ -3003,11 +3003,11 @@ int do_main_menu() {
 				log2file(" saving options");
 #ifdef __unix__
 				snprintf(filename, sizeof(filename),
-					"%s/.alex4/alex_4.sav",
+					"%s/.lex4/lex4.sav",
 					homedir? homedir:".");
 				pf = pack_fopen(filename, "wp");
 #else
-				pf = pack_fopen("alex_4.sav", "wp");
+				pf = pack_fopen("lex4.sav", "wp");
 #endif
 				if (pf) {
 					save_options(&options, pf);
@@ -3164,7 +3164,7 @@ int main(int argc, char **argv) {
 	}
 	else {
 		log2file("*** init failed!");
-		allegro_message("ALEX4:\nFailed to start game.");
+		allegro_message("lex4:\nFailed to start game.");
 	}
 
 	// tidy up
