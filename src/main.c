@@ -714,7 +714,7 @@ int init_game(const char *map_file) {
 
 	// set win title (no! really???)
 	log2file(" setting window title");
-	set_window_title("Alex 4");
+	set_window_title("Lex 4");
 
 	// register dumb
 	log2file(" registering dumb");
@@ -755,11 +755,11 @@ int init_game(const char *map_file) {
 	// loading highscores
 	log2file(" loading hiscores");
 #ifdef __unix__
-	snprintf(filename, sizeof(filename), "%s/.lex4/alex4.hi",
+	snprintf(filename, sizeof(filename), "%s/.lex4/lex4.hi",
 		homedir? homedir:".");
 	pf = pack_fopen(filename, "rp");
 #else
-	pf = pack_fopen("alex4.hi", "rp");
+	pf = pack_fopen("lex4.hi", "rp");
 #endif
 	if (pf) {
 		load_hisc_table(hisc_table, pf);
@@ -1079,6 +1079,7 @@ void uninit_game() {
 
 // inits the player on a map
 void init_player(Tplayer *p, Tmap *m) {
+	int i;
 	actor[0].direction = 1;
 	actor[0].x = m->start_x << 4;
 	if (actor[0].x < 0) {
@@ -1087,7 +1088,14 @@ void init_player(Tplayer *p, Tmap *m) {
 	}
 	actor[0].dy = 0;
 	actor[0].y = (m->start_y << 4) + 16;
-
+	for (i=0; i <= MAX_LEVELS; i++) {
+		if (options.stars[i] == 100) {
+			player.tclimit += 150;
+		}
+	}
+	if (player.tclimit >= player.tcfinal) {
+		player.tclimit = player.tcfinal;
+	}
 	p->jumping = 0;
 	p->wounded = 0;
 	p->dy = 0;
@@ -1559,6 +1567,7 @@ void new_game(int reset_player_data) {
 		player.tc_d = 10;
 		player.tclimit = 250;
 		player.health = 1;
+		player.tcfinal = 1501;
 	}
 	player.actor = &actor[0];
 	player.eat_counter = 0;
@@ -2994,7 +3003,7 @@ int do_main_menu() {
 					}
 					if (player.stars == player.stars_taken) {
 						options.stars[level] = 100;
-						if (player.tclimit < 1501) {
+						if (player.tclimit < player.tcfinal) {
 							player.tclimit += 150;
 						}
 						log2file("   all stars taken");

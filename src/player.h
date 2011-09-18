@@ -51,6 +51,7 @@ typedef struct {
 	int tc2;
 	int tclimit;
 	int tc_d;
+	int tcfinal;
 	
 	int dy;
 
