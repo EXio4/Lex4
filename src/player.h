@@ -49,6 +49,8 @@ typedef struct {
 	int fly_pressed;
 	int tc;
 	int tc2;
+	int tclimit;
+	int tc_d;
 	
 	int dy;
 

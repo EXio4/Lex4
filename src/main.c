@@ -501,7 +501,7 @@ void draw_status_bar(BITMAP *bmp, int y) {
 	draw_sprite(bmp, data[HEART2].dat, 30, y-3);
 	textprintf_ex(bmp, data[THE_FONT].dat, 45, y+1, 4, -1, "%d", player.health);
  
-	textprintf_ex(bmp, data[THE_FONT].dat, 60, y+1, 4, -1, "[%d] %d", player.ammo,player.tc / 5);
+	textprintf_ex(bmp, data[THE_FONT].dat, 60, y+1, 4, -1, "[%d] %d", player.ammo,player.tc / player.tc_d);
 
 	textprintf_right_ex(bmp, data[THE_FONT].dat, 150, y+1, 4, -1, "%d", player.score);
 }
@@ -1555,7 +1555,9 @@ void new_game(int reset_player_data) {
 		player.ammo = 0;
 		player.lives = 2;
 		player.score = 0;
-		player.tc = 250;
+		player.tc = 150;
+		player.tc_d = 10;
+		player.tclimit = 250;
 		player.health = 1;
 	}
 	player.actor = &actor[0];
@@ -1909,7 +1911,7 @@ void update_player() {
 				if (player.tc > 51) {
 					player.actor->dy = -16;
 //					player.jumping = 1;
-					player.tc -= 50;
+					player.tc -= 100;
 				}
 				player.jumping = 1;
 			} 
@@ -1973,7 +1975,7 @@ void update_player() {
 		}
 
 // Roll and Fly energy
-		if (player.tc < 501) {
+		if (player.tc <= player.tclimit) {
 				if (player.tc2 > 3) {
 					player.tc ++;
 					player.tc2 = 0;
@@ -2991,6 +2993,9 @@ int do_main_menu() {
 					}
 					if (player.stars == player.stars_taken) {
 						options.stars[level] = 100;
+						if (player.tclimit < 1501) {
+							player.tclimit += 150;
+						}
 						log2file("   all stars taken");
 					}
 
