@@ -1,10 +1,10 @@
 /**************************************************************
- *         _____    __                       _____            *
- *        /  _  \  |  |    ____  ___  ___   /  |  |           *
- *       /  /_\  \ |  |  _/ __ \ \  \/  /  /   |  |_          *
- *      /    |    \|  |__\  ___/  >    <  /    ^   /          *
- *      \____|__  /|____/ \___  >/__/\_ \ \____   |           *
- *              \/            \/       \/      |__|           *
+ *              __                       _____                *
+ *             |  |    ____  ___  ___   /  |  |               *
+ *             |  |  _/ __ \ \  \/  /  /   |  |_              *
+ *             |  |__\  ___/  >    <  /    ^   /              *
+ *             |____/ \___  >/__/\_ \ \____   |               *
+ *                        \/       \/      |__|        	      *
  *                                                            *
  **************************************************************
  *    This source code is released under the The GNU          *
@@ -13,22 +13,10 @@
  *    http://www.gnu.org for license information.             *
  **************************************************************/
 
-INTRODUCTION
-
-Nine times out of ten when I start to write a game, I have planned to make a 
-small game. Nine times out of ten, the game grows halfway through the code into
-something to big for the code to hold. Usually at this point, I'm to lazy to 
-refactor the code so that it can handle the scaling. Instead I hack. Hacking 
-is fun, but not very good practice. Still, if it looks right on the screen, 
-then it is right. Right? :) 
-
-
-
-
 COMPILING
 
 If you're not content with just reading the code and want to compile it, here's
-how. First you need the libraries that Alex4 uses. Allegro and DUMB, get them 
+how. First you need the libraries that Lex4 uses. Allegro and DUMB, get them 
 on their web sites:
 	
 	http://alleg.sf.net	and	http://dumb.sf.net
@@ -41,38 +29,12 @@ that you maintain the directory structure so that the c-files can find the
 h-files that they need (mostly in the data/ directory).
 
 
-Debian:
-	Run this command as root
-		apt-get build-dep alex4
-	Continue
+For more info read wiki:
 
-Arch linux:
+	https://github.com/EXio4/Lex4/wiki	
 
-	Install 'dump' package
-	Continue
-
-
-------
-
-	Compile + Install
-
-
-	cd src
-	make
-	sudo make install
-
-
---
-
-
-	Uninstall:
-
-	make uninstall
-
-
-------
 
 AUTHORS:
 
 
-Fork is created by EXio, Original Developer is Johan Peitz of http://www.freelunchdesign.com/
+Fork is created by me (Exio), Original Developer is Johan Peitz of http://www.freelunchdesign.com/

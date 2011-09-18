@@ -465,7 +465,7 @@ void load_level_files(const char *filename) {
 				log2file("  <%s> found", buf);
 			}
 			else {
-				allegro_message("lex4:\n<%s> not found - skipping", level_files[num_levels]);
+				allegro_message("ALEX4:\n<%s> not found - skipping", level_files[num_levels]);
 				log2file("  *** <%s> not found - skipping", level_files[num_levels]);
 			}
 		}
@@ -627,11 +627,11 @@ int init_game(const char *map_file) {
 	log2file(" initializing allegro");
 	garble_string(init_string, 53);
 #ifdef __unix__
-	snprintf(filename, sizeof(filename), "%s/.lex4/lex4.ini",
+	snprintf(filename, sizeof(filename), "%s/.lex4/alex4.ini",
 		homedir? homedir:".");
 	override_config_file(filename);
 #else
-	set_config_file("lex4.ini");
+	set_config_file("alex4.ini");
 #endif
 	
 	// install timers
@@ -647,7 +647,7 @@ int init_game(const char *map_file) {
 	swap_screen = create_bitmap(160, 120);
 	if (swap_screen == NULL) {
 		log2file("  *** failed");
-		allegro_message("lex4:\nFailed to allocate memory for swap screen.");
+		allegro_message("ALEX4:\nFailed to allocate memory for swap screen.");
 		return FALSE;
 	}
 
@@ -655,7 +655,7 @@ int init_game(const char *map_file) {
 	hisc_table = make_hisc_table();
 	if (hisc_table == NULL) {
 		log2file("  *** failed");
-		allegro_message("lex4:\nFailed to allocate memory for high score list.");
+		allegro_message("ALEX4:\nFailed to allocate memory for high score list.");
 		return FALSE;
 	}
 
@@ -663,7 +663,7 @@ int init_game(const char *map_file) {
 	hisc_table_space = make_hisc_table();
 	if (hisc_table_space == NULL) {
 		log2file("  *** failed");
-		allegro_message("lex4:\nFailed to allocate memory for high score list.");
+		allegro_message("ALEX4:\nFailed to allocate memory for high score list.");
 		return FALSE;
 	}
 	
@@ -678,7 +678,7 @@ int init_game(const char *map_file) {
 		h = get_config_int("graphics", "w_height", 480);
 	}
 
-	log2file(" entering gfx mode set in lex4.ini (%dx%d %s)", w, h, (get_config_int("graphics", "fullscreen", 0) ? "full" : "win"));
+	log2file(" entering gfx mode set in alex4.ini (%dx%d %s)", w, h, (get_config_int("graphics", "fullscreen", 0) ? "full" : "win"));
 
     if (set_gfx_mode(
 		(get_config_int("graphics", "fullscreen", 0) ? GFX_AUTODETECT_FULLSCREEN : GFX_AUTODETECT_WINDOWED),
@@ -690,7 +690,7 @@ int init_game(const char *map_file) {
 			log2file(" entering gfx mode (640x480 fullscreen)");
 			if (set_gfx_mode(GFX_AUTODETECT_FULLSCREEN, 640, 480, 0, 0)) {
 				log2file("  *** failed");
-				allegro_message("lex4:\nFailed to enter gfx mode.\nTry setting a custom resolution in lex4.ini.");
+				allegro_message("ALEX4:\nFailed to enter gfx mode.\nTry setting a custom resolution in alex4.ini.");
 				return FALSE;
 			}
 		}
@@ -730,7 +730,7 @@ int init_game(const char *map_file) {
 	packfile_password(NULL);
 	if (data == NULL) {
     	log2file("  *** failed");
-		allegro_message("lex4:\nFailed to load data.");
+		allegro_message("ALEX4:\nFailed to load data.");
 		return FALSE;
 	}
 
@@ -755,11 +755,11 @@ int init_game(const char *map_file) {
 	// loading highscores
 	log2file(" loading hiscores");
 #ifdef __unix__
-	snprintf(filename, sizeof(filename), "%s/.lex4/lex4.hi",
+	snprintf(filename, sizeof(filename), "%s/.lex4/alex4.hi",
 		homedir? homedir:".");
 	pf = pack_fopen(filename, "rp");
 #else
-	pf = pack_fopen("lex4.hi", "rp");
+	pf = pack_fopen("alex4.hi", "rp");
 #endif
 	if (pf) {
 		load_hisc_table(hisc_table, pf);
@@ -798,9 +798,9 @@ int init_game(const char *map_file) {
 		num_levels = -1;  // skip end object when counting
 		maps = load_datafile_callback(DATADIR "maps.dat", count_maps_callback);
 		packfile_password(NULL);
- 		if (maps == NULL) {
+		if (maps == NULL) {
 	    	log2file("  *** failed");
-			allegro_message("lex4:\nFailed to load original maps.");
+			allegro_message("ALEX4:\nFailed to load original maps.");
 			return FALSE;
 		}
 		log2file(" loaded %d maps", num_levels);
@@ -814,13 +814,13 @@ int init_game(const char *map_file) {
 			log2file("  %d maps loaded", num_levels);
 			if (num_levels == 0) {
 				log2file("  *** no maps were loaded");
-				allegro_message("lex4:\nCustom map file must\nhold at least one\nlegal map file.");
+				allegro_message("ALEX4:\nCustom map file must\nhold at least one\nlegal map file.");
 				return FALSE;
 			}
 		}
 		else {
 			log2file("  *** file not found: %s", map_file);
-			allegro_message("lex4:\nCustom map file not found:\n%s", map_file);
+			allegro_message("ALEX4:\nCustom map file not found:\n%s", map_file);
 			return FALSE;
 		}		
 	}
@@ -1045,11 +1045,11 @@ void uninit_game() {
 		
 		log2file(" saving highscores");
 #ifdef __unix__
-		snprintf(filename, sizeof(filename), "%s/.lex4/lex4.hi",
+		snprintf(filename, sizeof(filename), "%s/.lex4/alex4.hi",
 			homedir? homedir:".");
 		pf = pack_fopen(filename, "wp");
 #else
-		pf = pack_fopen("lex4.hi", "wp");
+		pf = pack_fopen("alex4.hi", "wp");
 #endif
 		if (pf) {
 			save_hisc_table(hisc_table, pf);
@@ -1893,7 +1893,9 @@ void update_player() {
 		if (!is_ground(map, player.actor->x + x1, player.actor->y)) {
 			if (!is_ground(map, player.actor->x + x2, player.actor->y)) {
 				player.actor->dy ++;
-				player.jumping = 1;
+				if (player.jumping == 0) {
+					player.jumping = 1;
+				}
 			}
 		}
 		else {
@@ -1902,9 +1904,16 @@ void update_player() {
 		}
 	
 		// jumping?
-		if (is_jump(&ctrl) && !player.jumping && !player.jump_pressed) {
-			player.actor->dy = -16;
-			player.jumping = 1;
+		if (is_jump(&ctrl) && player.jumping != 1 && !player.jump_pressed) {
+			if (player.jumping == 4) {
+				player.actor->dy = -16;
+				player.jumping = 1;
+			} 
+			if (player.jumping == 0) {
+				player.actor->dy = -16;
+				player.jumping = 4;
+			}
+ 	 		
 			player.jump_pressed = 1;
 			play_sound(sfx[SMPL_JUMP]);
 		}
@@ -1940,9 +1949,9 @@ void update_player() {
 	
 //		if (is_fly(&ctrl) && !player.fly && !player.fly_pressed) {
 		if (is_fly(&ctrl)) {
-				if (player.tc > 1) {
-					player.actor->dy = -3;
-					player.tc -= 5;
+				if (player.tc > 11) {
+					player.actor->dy = -6;
+					player.tc -= 10;
 //					player.fly_pressed = 1;
 					if (player.fly == 0) {
 						play_sound(sfx[SMPL_JUMP]);
@@ -2195,7 +2204,7 @@ void check_alex_with_enemies() {
 							// bounce
 							player.actor->y = actor[e].y - actor[e].h - 6;
 							player.dy = -15;	// jump!
-							player.jumping = TRUE;
+							player.jumping = 4;
 							play_sound(sfx[SMPL_JUMP]);
 							if (actor[e].mode == 0) {
 								actor[e].mode = 4;
@@ -2207,8 +2216,8 @@ void check_alex_with_enemies() {
 							//play_sound((actor[e].type == MAP_ENEMY5 ? sfx[SMPL_E_DIE] : sfx[SMPL_MASH]));
 							play_sound(sfx[SMPL_MASH]);
 							if (is_jump(&ctrl) ) {
-								player.dy = -20;	// jump!
-								player.jumping = TRUE;
+								player.dy = -25;	// jump!
+								player.jumping = 4;
 								play_sound(sfx[SMPL_JUMP]);
 							}
 						}
@@ -2972,11 +2981,11 @@ int do_main_menu() {
 				if (level < MAX_LEVELS && playing_original_game) {
 					int i;
 					int ace = 1;
-					if (player.cherries >= player.cherries_taken) {
+					if (player.cherries == player.cherries_taken) {
 						options.cherries[level] = 100;
 						log2file("   all cherries taken");
 					}
-					if (player.stars >= player.stars_taken) {
+					if (player.stars == player.stars_taken) {
 						options.stars[level] = 100;
 						log2file("   all stars taken");
 					}
@@ -3086,7 +3095,6 @@ int do_main_menu() {
 		textout_outline_center(swap_screen, "Johan Peitz", 80, 60);
 		textout_outline_center(swap_screen, "MUSIC, SFX:", 80, 78);
 		textout_outline_center(swap_screen, "Anders Svensson", 80, 90);
-		textout_outline_center(swap_screen, "Edited by EXio4", 80, 110);	
 		blit_to_screen(swap_screen);
 		fade_in_pal(100);
 		cycle_count = 0;
@@ -3118,10 +3126,10 @@ int main(int argc, char **argv) {
 
 #ifdef __unix__
 	// start logfile
-	snprintf(full_path, sizeof(full_path), "%s/.alex_4",
+	snprintf(full_path, sizeof(full_path), "%s/.lex4",
 		homedir? homedir:".");
 	check_and_create_dir(full_path);
-	snprintf(full_path, sizeof(full_path), "%s/.alex_4/log.txt",
+	snprintf(full_path, sizeof(full_path), "%s/.lex4/log.txt",
 		homedir? homedir:".");
 	log_fp = fopen(full_path, "wt");
 #else
@@ -3165,7 +3173,7 @@ int main(int argc, char **argv) {
 	}
 	else {
 		log2file("*** init failed!");
-		allegro_message("lex4:\nFailed to start game.");
+		allegro_message("ALEX4:\nFailed to start game.");
 	}
 
 	// tidy up

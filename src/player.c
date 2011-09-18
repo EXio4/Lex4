@@ -94,6 +94,7 @@ void kill_player(Tplayer *p) {
 	p->wounded = 0;
 	p->health = 0;
 	p->actor->status = AC_DEAD;
+	p->tc = 250;
 	p->actor->dy = -15;
 }
 

@@ -28,3 +28,8 @@ uninstall:
 
 	rm -f $(PREFIX)/bin/$(TARGET)
 	rm -rf $(DATADIR)
+
+
+test: $(TARGET)
+
+	./lex4
