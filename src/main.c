@@ -1908,7 +1908,7 @@ void update_player() {
 		// jumping?
 		if (is_jump(&ctrl) && player.jumping != 1 && !player.jump_pressed) {
 			if (player.jumping == 4) {
-				if (player.tc > 51) {
+				if (player.tc > 101) {
 					player.actor->dy = -16;
 //					player.jumping = 1;
 					player.tc -= 100;
