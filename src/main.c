@@ -3086,6 +3086,7 @@ int do_main_menu() {
 		textout_outline_center(swap_screen, "Johan Peitz", 80, 60);
 		textout_outline_center(swap_screen, "MUSIC, SFX:", 80, 78);
 		textout_outline_center(swap_screen, "Anders Svensson", 80, 90);
+		textout_outline_center(swap_screen, "Edited by EXio4", 80, 110);	
 		blit_to_screen(swap_screen);
 		fade_in_pal(100);
 		cycle_count = 0;
