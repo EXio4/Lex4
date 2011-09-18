@@ -1079,7 +1079,6 @@ void uninit_game() {
 
 // inits the player on a map
 void init_player(Tplayer *p, Tmap *m) {
-	int i;
 	actor[0].direction = 1;
 	actor[0].x = m->start_x << 4;
 	if (actor[0].x < 0) {
@@ -1088,14 +1087,6 @@ void init_player(Tplayer *p, Tmap *m) {
 	}
 	actor[0].dy = 0;
 	actor[0].y = (m->start_y << 4) + 16;
-	for (i=0; i <= MAX_LEVELS; i++) {
-		if (options.stars[i] == 100) {
-			player.tclimit += 150;
-		}
-	}
-	if (player.tclimit >= player.tcfinal) {
-		player.tclimit = player.tcfinal;
-	}
 	p->jumping = 0;
 	p->wounded = 0;
 	p->dy = 0;
@@ -1558,6 +1549,7 @@ int select_starting_level() {
 
 // starts a new game
 void new_game(int reset_player_data) {
+	int i;
 	// init player
 	if (reset_player_data) {
 		player.ammo = 0;
@@ -1568,6 +1560,16 @@ void new_game(int reset_player_data) {
 		player.tclimit = 250;
 		player.health = 1;
 		player.tcfinal = 1501;
+		for (i=0; i <= MAX_LEVELS; i++) {
+			if (options.stars[i] == 100) {
+				player.tclimit += 150;
+			}
+		}
+		if (player.tclimit >= player.tcfinal) {
+			player.tclimit = player.tcfinal;
+		}
+		
+		player.tc = player.tcfinal - (player.tcfinal / 5);
 	}
 	player.actor = &actor[0];
 	player.eat_counter = 0;
