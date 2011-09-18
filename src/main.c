@@ -2061,6 +2061,7 @@ void update_player() {
 				if (player.actor->status != AC_BALL) player.actor->status = AC_EAT;
 				player.eat_counter = 0;
 				player.lives ++;
+				player.tc = player.tclimit;
 				play_sound(sfx[SMPL_XTRALIFE]);
 			}
 		}
