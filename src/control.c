@@ -31,10 +31,10 @@ void init_control(Tcontrol *c) {
 					KEY_DOWN,
 					KEY_LEFT,
 					KEY_RIGHT,
-					KEY_LCONTROL,
+					KEY_C,
 					KEY_ALT,
 					KEY_Z,
-					KEY_S);
+					KEY_X);
 
 	c->flags = 0;
 	c->use_joy = 0;
