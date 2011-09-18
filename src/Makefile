@@ -1,6 +1,6 @@
 PREFIX  = /usr
 DATADIR = $(PREFIX)/share/$(TARGET)
-CFLAGS  ?=  -g -Wall -Wno-deprecated-declarations -O2
+CFLAGS  ?=  -Wall -Wno-deprecated-declarations -O2
 LIBS = -laldmb -ldumb `allegro-config --libs`
 DEFINES = -DDATADIR=\"$(DATADIR)/\"
 OBJS    =  actor.o    edit.o  map.o       player.o    shooter.o unix.o \
@@ -30,6 +30,3 @@ uninstall:
 	rm -rf $(DATADIR)
 
 
-test: $(TARGET)
-
-	./lex4
