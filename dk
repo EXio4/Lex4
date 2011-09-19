@@ -8,4 +8,7 @@
 }
 
 
+mkdir -p /usr/share/lex4/icon
+cp lex4.png /usr/share/lex4/icon
+
 cp lex4.desktop /usr/share/applications

@@ -1,6 +1,7 @@
 [Desktop Entry]
 Categories=Application;Game;
 Exec=lex4
+Icon=/usr/share/lex4/icon/lex4.png
 GenericName=Lex 4
 Name=Lex4
 Comment=Fork of Alex4 with Funny features
