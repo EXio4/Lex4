@@ -616,6 +616,7 @@ int init_game(const char *map_file) {
 	BITMAP *bmp;
 	int i;
 	int w, h;
+	
 #ifdef __unix__   
 	char filename[512];
 	char *homedir = get_homedir();
@@ -627,11 +628,11 @@ int init_game(const char *map_file) {
 	log2file(" initializing allegro");
 	garble_string(init_string, 53);
 #ifdef __unix__
-	snprintf(filename, sizeof(filename), "%s/.lex4/alex4.ini",
+	snprintf(filename, sizeof(filename), "%s/.lex4/lex4.ini",
 		homedir? homedir:".");
 	override_config_file(filename);
 #else
-	set_config_file("alex4.ini");
+	set_config_file("lex4.ini");
 #endif
 	
 	// install timers
@@ -678,7 +679,7 @@ int init_game(const char *map_file) {
 		h = get_config_int("graphics", "w_height", 480);
 	}
 
-	log2file(" entering gfx mode set in alex4.ini (%dx%d %s)", w, h, (get_config_int("graphics", "fullscreen", 0) ? "full" : "win"));
+	log2file(" entering gfx mode set in lex4.ini (%dx%d %s)", w, h, (get_config_int("graphics", "fullscreen", 0) ? "full" : "win"));
 
     if (set_gfx_mode(
 		(get_config_int("graphics", "fullscreen", 0) ? GFX_AUTODETECT_FULLSCREEN : GFX_AUTODETECT_WINDOWED),
@@ -690,7 +691,7 @@ int init_game(const char *map_file) {
 			log2file(" entering gfx mode (640x480 fullscreen)");
 			if (set_gfx_mode(GFX_AUTODETECT_FULLSCREEN, 640, 480, 0, 0)) {
 				log2file("  *** failed");
-				allegro_message("ALEX4:\nFailed to enter gfx mode.\nTry setting a custom resolution in alex4.ini.");
+				allegro_message("ALEX4:\nFailed to enter gfx mode.\nTry setting a custom resolution in lex4.ini.");
 				return FALSE;
 			}
 		}
@@ -1045,11 +1046,11 @@ void uninit_game() {
 		
 		log2file(" saving highscores");
 #ifdef __unix__
-		snprintf(filename, sizeof(filename), "%s/.lex4/alex4.hi",
+		snprintf(filename, sizeof(filename), "%s/.lex4/lex4.hi",
 			homedir? homedir:".");
 		pf = pack_fopen(filename, "wp");
 #else
-		pf = pack_fopen("alex4.hi", "wp");
+		pf = pack_fopen("lex4.hi", "wp");
 #endif
 		if (pf) {
 			save_hisc_table(hisc_table, pf);
