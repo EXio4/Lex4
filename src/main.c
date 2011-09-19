@@ -615,7 +615,7 @@ int init_game(const char *map_file) {
 	PACKFILE *pf;
 	BITMAP *bmp;
 	int i;
-	int w, h;
+	int w, h;	
 	
 #ifdef __unix__   
 	char filename[512];
@@ -1091,6 +1091,7 @@ void init_player(Tplayer *p, Tmap *m) {
 	p->jumping = 0;
 	p->wounded = 0;
 	p->dy = 0;
+	p->speed = 5;
 	p->ammo = 0;
 	p->eat_counter = 0;
 	p->roll = 0;
@@ -1558,6 +1559,8 @@ void new_game(int reset_player_data) {
 		player.score = 0;
 		player.tc = 150;
 		player.tc_d = 10;
+		player.speedf = 1;
+		player.speed = 1; 
 		player.tclimit = 250;
 		player.health = 1;
 		player.tcfinal = 1501;
@@ -1966,7 +1969,7 @@ void update_player() {
 		
 	
 //		if (is_fly(&ctrl) && !player.fly && !player.fly_pressed) {
-		if (is_fly(&ctrl)) {
+		if (is_fly(&ctrl) && !(is_fire(&ctrl))) {
 				if (player.tc > 11) {
 					player.actor->dy = -6;
 					player.tc -= 10;
@@ -1985,6 +1988,25 @@ void update_player() {
 			player.fly = 0;
 //			player.fly_pressed = 0;
 		}
+		
+		if (is_fire(&ctrl) && (is_fly(&ctrl)) ) {
+				if (player.tc >= 5) {
+					player.frez = 4;
+					player.speed = 2;
+					player.tc -= 5;
+				}
+				else
+				{
+						player.frez = 0;
+						player.speed = 1;
+				}
+		}
+		else
+		{
+				player.frez = 0;
+				player.speed = 1;
+		}
+
 
 // Roll and Fly energy
 		if (player.tc <= player.tclimit) {

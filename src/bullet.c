@@ -19,11 +19,14 @@
  
  
  
-
-
+#include "allegro.h"
+#include "actor.h"
+#include "map.h"
+#include "timer.h"
+#include "player.h"
 #include "bullet.h"
 #include "particle.h"
-#include "timer.h"
+#include "main.h"
 #include "../data/data.h"
 
 
@@ -64,6 +67,7 @@ void draw_bullet(BITMAP *bmp, Tbullet *b, int ox, int oy) {
 
 // updates the bullet one tick
 void update_bullet(Tbullet *b) {
+	if (player.frez == 4) return; 
 	b->x += b->dx;
 	b->y += b->dy;
 	if (b->gravity) b->dy += 0.05;

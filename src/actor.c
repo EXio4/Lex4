@@ -226,6 +226,7 @@ void _spike_jump(Tactor *a, Tmap *m) {
 // this is an ugly function with an if clause
 // for each enemy type
 void update_actor_with_map(Tactor *a, Tmap *m) {
+	if (player.frez != 4) {
 	if (a->energy <= 0 && a->status == AC_NORM) {
 		a->status = AC_DEAD;	
 		play_sound_id(SMPL_E_DIE);
@@ -235,8 +236,8 @@ void update_actor_with_map(Tactor *a, Tmap *m) {
 	}
 
 	if (a->status == AC_DEAD) {
-		if (a->direction) a->x -= 1;
-		else a->x += 1;
+		if (a->direction) a->x -= 2;
+		else a->x += 2;
 		a->dy ++;
 		a->y += a->dy >> 2;
 
@@ -504,6 +505,7 @@ void update_actor_with_map(Tactor *a, Tmap *m) {
 		if (a->status != AC_DEAD) {
 			m->num_enemies --;
 		}
+	}
 	}
 }
 
