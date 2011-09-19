@@ -53,6 +53,11 @@ typedef struct {
 	int tc_d;
 	int tcfinal;
 	
+	int speed;
+	int speedf;
+	
+	int frez;
+	
 	int dy;
 
 	// pick up related
