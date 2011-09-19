@@ -1,0 +1,11 @@
+#!/bin/bash
+
+[[ "$USER" != "root" ]] && {
+
+	echo "Root check failed! Please run script as root"
+	exit 1
+
+}
+
+
+cp lex4.desktop /usr/share/applications

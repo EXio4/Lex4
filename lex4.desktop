@@ -1,0 +1,9 @@
+[Desktop Entry]
+Categories=Application;Game;
+Exec=lex4
+GenericName=Lex 4
+Name=Lex4
+Comment=Fork of Alex4 with Funny features
+Terminal=false
+Type=Application
+Version=1.2
