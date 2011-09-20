@@ -549,7 +549,7 @@ void s_update_object(Tspace_object *o) {
 		o->fire_counter --;
 	}
 	else if (o->fire_counter == 0) {
-		o->fire_counter = 100 + rand()%50;
+		o->fire_counter = 100 + rand()%25;
 
 		if (o->image == ENEMY07) {
 			s_make_enemy_bullet((int)o->x, (int)o->y + o->bh/2 + 2, -1.8, 0);
@@ -1038,7 +1038,7 @@ void s_update_player() {
 				break;
 		}
 
-		shoot_delay = 20;
+		shoot_delay = 5;
 
 		// play sound
 		play_sound_id(SMPL_SPIT);
