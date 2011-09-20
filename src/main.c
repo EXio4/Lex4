@@ -153,6 +153,50 @@ char *get_init_string() {
 }
 
 
+
+void _color_pal(int var) {
+
+		int i;
+
+		if (var == 0) {
+		// fix palette
+			for(i = 0; i < 256; i ++) {
+				org_pal[i].r = ((RGB *)data[0].dat)[i].r;
+		//		org_pal[i].r = random();
+				org_pal[i].g = ((RGB *)data[0].dat)[i].g;
+		//		org_pal[i].g = random();
+				org_pal[i].b = ((RGB *)data[0].dat)[i].b;
+		//		org_pal[i].b = random();
+			}
+		}
+		else if ( var == 1) {
+
+			for(i = 0; i < 256; i ++) {
+				org_pal[i].r = ((RGB *)data[0].dat)[i].g;
+		//		org_pal[i].r = ;
+				org_pal[i].g = ((RGB *)data[0].dat)[i].b;
+		//		org_pal[i].g = random();
+				org_pal[i].b = ((RGB *)data[0].dat)[i].r;
+//				org_pal[i].b = 0;
+			}		
+			
+			
+		}
+		else if ( var == 2 ) {
+	
+			for(i = 0; i < 256; i ++) {
+				org_pal[i].r = ((RGB *)data[0].dat)[i].r;
+		//		org_pal[i].r = random();
+				org_pal[i].g = ((RGB *)data[0].dat)[i].b;
+		//		org_pal[i].g = random();
+				org_pal[i].b = ((RGB *)data[0].dat)[i].g;
+		//		org_pal[i].b = random();
+			}		
+			
+			
+		}
+}
+
 // loggs the text to the text file
 void log2file(char *format, ...) {
 	va_list ptr; /* get an arg pointer */
@@ -833,15 +877,7 @@ int init_game(const char *map_file) {
 	log2file(" installing mouse");
 	install_mouse();
 
-	// fix palette
-	for(i = 0; i < 256; i ++) {
-		org_pal[i].r = ((RGB *)data[0].dat)[i].r;
-//		org_pal[i].r = random();
-		org_pal[i].g = ((RGB *)data[0].dat)[i].g;
-//		org_pal[i].g = random();
-		org_pal[i].b = ((RGB *)data[0].dat)[i].b;
-//		org_pal[i].b = random();
-	}
+	_color_pal(0);
 
 	// init control
 	log2file(" initializing controls");
@@ -1990,21 +2026,33 @@ void update_player() {
 		}
 		
 		if (is_fire(&ctrl) && (is_fly(&ctrl)) ) {
-				if (player.tc >= 5) {
+				if (player.tc >= 50) {
+					if (!player.frez) {
+						_color_pal(1);
+						fade_in_pal(1);
+					}
 					player.frez = 4;
 					player.speed = 2;
 					player.tc -= 5;
 				}
 				else
 				{
+					if (player.frez) {
+						_color_pal(0);
+						fade_in_pal(1);
+					}
 						player.frez = 0;
 						player.speed = 1;
 				}
 		}
 		else
 		{
-				player.frez = 0;
-				player.speed = 1;
+				if (player.frez) {
+					_color_pal(0);
+					fade_in_pal(1);
+					player.frez = 0;
+					player.speed = 1;
+				}
 		}
 
 
