@@ -1573,7 +1573,7 @@ void new_game(int reset_player_data) {
 			player.tclimit = player.tcfinal;
 		}
 		
-		player.tc = player.tcfinal - (player.tcfinal / 5);
+		player.tc = player.tclimit - (player.tclimit / 5);
 	}
 	player.actor = &actor[0];
 	player.eat_counter = 0;

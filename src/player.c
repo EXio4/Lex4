@@ -95,7 +95,7 @@ void kill_player(Tplayer *p) {
 	p->health = 0;
 	p->actor->status = AC_DEAD;
 	p->actor->dy = -15;
-	p->tc = p->tcfinal - (p->tcfinal / 10);
+	p->tc = p->tclimit - (p->tclimit / 3);
 }
 
 // decreases player health etc
