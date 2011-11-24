@@ -1,7 +1,11 @@
 PREFIX  = /usr
 DATADIR = $(PREFIX)/share/$(TARGET)
-CFLAGS  ?=  -Wall -Wno-deprecated-declarations -O2
-LIBS = -laldmb -ldumb `allegro-config --libs`
+CFLAGS  ?=  -Wall -Wno-deprecated-declarations -O3
+ifeq '$(OS)' 'Windows_NT'
+	LIBS = -laldmb -ldumb -lalleg	
+else
+	LIBS = -laldmb -ldumb `allegro-config --libs`
+endif
 DEFINES = -DDATADIR=\"$(DATADIR)/\"
 OBJS    =  actor.o    edit.o  map.o       player.o    shooter.o unix.o \
            bullet.o   hisc.o  options.o   script.o    timer.o          \

@@ -24,7 +24,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <endian.h>
+#if defined(UNIX)
+	#include <endian.h>
+#endif
 #include "allegro.h"
 #include "map.h"
 #include "timer.h"
