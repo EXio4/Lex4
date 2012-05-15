@@ -1,6 +1,6 @@
 PREFIX  = /usr
 DATADIR = $(PREFIX)/share/$(TARGET)
-CFLAGS  ?=  -Wall -Wno-deprecated-declarations -O3
+CFLAGS  ?=  -Wall -Wno-deprecated-declarations -O0 -g
 ifeq '$(OS)' 'Windows_NT'
 	LIBS = -laldmb -ldumb -lalleg	
 else
