@@ -1,4 +1,4 @@
-//      media_defs.h
+//      timer.h
 //
 //      Copyright 2013 Esteban I. RM <exio4.com@gmail.com>
 //
@@ -17,8 +17,15 @@
 //      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 //      MA 02110-1301, USA.
 
-// max media loaded at the time
-#define MEDIA_MAX 1024
+typedef struct timer {
+    int start_ticks;
+    int paused_ticks;
+    int paused, started;
+} timer;
 
-#define MENU_BACKGROUND     0x00
-#define MENU_FONT           0x00
+timer* init_timer();
+void timer_start(timer* tm);
+void timer_stop(timer* tm);
+int timer_get_ticks(timer* tm);
+void timer_pause(timer *tm);
+void timer_unpause(timer *tm);

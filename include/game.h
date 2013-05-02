@@ -32,10 +32,10 @@ struct window;
 struct media_data;
 
 typedef struct game {
-    char*                name;
+    char                 *name;
     int                  state;
-    struct window*       win;
-    struct media_data*   data;
+    struct window        *win;
+    struct media_data    *data;
     SDL_Event            event;
 } game;
 

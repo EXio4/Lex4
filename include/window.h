@@ -21,6 +21,7 @@
 #define WINDOW_H
 
 #include "sdl_include.h"
+#include "game.h"
 
 typedef struct window {
     int     width;
@@ -30,8 +31,6 @@ typedef struct window {
 
     SDL_Surface *display;
 } window;
-
-#include "game.h"
 
 int init_window(game *gm);
 void render_window(game *gm);

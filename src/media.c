@@ -24,8 +24,8 @@
 int init_media(game *gm) {
     int i;
     for (i = 0; i < MEDIA_MAX; i++) {
-        gm->data->images[i]=NULL;
-        gm->data->fonts[i]=NULL;
+        gm->data->images[i] = NULL;
+        gm->data->fonts[i]  = NULL;
     }
     return 0;
 }
@@ -46,11 +46,11 @@ int unload_media(game *gm) {
     for (i = 0; i < MEDIA_MAX; i++) {
         if (gm->data->images[i]) {
             SDL_FreeSurface(gm->data->images[i]);
-            gm->data->images[i]=NULL;
+            gm->data->images[i] = NULL;
         }
         if (gm->data->fonts[i]) {
             TTF_CloseFont(gm->data->fonts[i]);
-            gm->data->fonts[i]=NULL;
+            gm->data->fonts[i] = NULL;
         }
     }
     return 0;

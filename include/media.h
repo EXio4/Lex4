@@ -22,13 +22,12 @@
 
 #include "sdl_include.h"
 #include "media_defs.h"
+#include "game.h"
 
 typedef struct media_data {
     SDL_Surface*    images[MEDIA_MAX];
     TTF_Font*       fonts[MEDIA_MAX];
 } media_data;
-
-#include "game.h"
 
 int init_media(game *gm);
 int load_basic_media(game *gm);

@@ -1,4 +1,4 @@
-//      media_defs.h
+//      entity.c
 //
 //      Copyright 2013 Esteban I. RM <exio4.com@gmail.com>
 //
@@ -17,8 +17,3 @@
 //      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 //      MA 02110-1301, USA.
 
-// max media loaded at the time
-#define MEDIA_MAX 1024
-
-#define MENU_BACKGROUND     0x00
-#define MENU_FONT           0x00

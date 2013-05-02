@@ -1,4 +1,4 @@
-//      media_defs.h
+//      entity.h
 //
 //      Copyright 2013 Esteban I. RM <exio4.com@gmail.com>
 //
@@ -17,8 +17,38 @@
 //      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 //      MA 02110-1301, USA.
 
-// max media loaded at the time
-#define MEDIA_MAX 1024
+#include "media_defs.h"
 
-#define MENU_BACKGROUND     0x00
-#define MENU_FONT           0x00
+typedef struct entity_data {
+    int w, h;
+
+    int idle_anim_start;
+    int idle_anim_end;
+
+    // walking to the the right
+    int walk_anim_start;
+    int walk_anim_stop;
+
+    // running to the right
+    int run_anim_start;
+    int run_anim_stop;
+
+    int surfaces_ids[MEDIA_MAX]; // the max surfaces loaded *per* entity is the same as the max number of general surfaces
+    //
+} entity_data;
+
+typedef struct entity {
+    int type;
+    int flags;
+    int status;
+    float x, y;
+    float xvel, yvel;
+    entity_data* data;
+} entity;
+
+#declare ENT_T_PLAYER       0x01
+#declare ENT_T_PARTICLE     0x02
+#declare ENT_T_LUAENTITY    0x04
+
+#declare ENT_F_PHYSICAL 0x01
+#declare ENT_F_DEAD     0x02

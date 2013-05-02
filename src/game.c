@@ -17,10 +17,13 @@
 //      Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 //      MA 02110-1301, USA.
 
+#define FPS_CAP 60
+
 #include "window.h"
 #include "media.h"
 #include "game.h"
 #include "raw_screen.h"
+#include "timer.h"
 
 game* alloc_game(const char* name) {
     game* gm=malloc(sizeof(game));
@@ -69,10 +72,11 @@ void parse_keypress(game *gm) {
 }
 
 void got_event(game *gm) {
-    if (gm->event.type == SDL_QUIT) {
+    SDL_Event ev = gm->event;
+    if (ev.type == SDL_QUIT) {
         gm->state = GM_STOP;
     }
-    else if (gm->event.type == SDL_KEYDOWN) {
+    else if (ev.type == SDL_KEYDOWN) {
         parse_keypress(gm);
     }
 }
@@ -87,6 +91,9 @@ void do_game(game *gm) {
 
 int game_run(char *gm_name) {
     game* gm = alloc_game(gm_name);
+    int frame = 0;
+    timer* fps = init_timer();
+    timer *update = init_timer();
 
     // default values
     gm->win->width = 800;
@@ -110,12 +117,31 @@ int game_run(char *gm_name) {
         ERROR("error starting the main window\n");
     }
 
+    timer_start(update);
+
     while (gm->state != GM_STOP) {
+        timer_start(fps);
         while(SDL_PollEvent(&(gm->event))) {
             got_event(gm);
         }
         do_game(gm);
         render_window(gm);
+        frame++;
+        printf("%d - %d - %d\n", frame, timer_get_ticks(update), SDL_GetTicks());
+        if (timer_get_ticks(update) > 1000) {
+
+            char *tmp = malloc(sizeof(char) * 25);
+
+            float fps_average = frame * (timer_get_ticks(update) / 1000.f);
+
+            snprintf(tmp, 25, "Average FPS: %f", fps_average);
+            SDL_WM_SetCaption(tmp, NULL);
+
+            free(tmp);
+
+            frame = 0;
+            timer_start(update);
+        }
     }
 
     close_window(gm);
